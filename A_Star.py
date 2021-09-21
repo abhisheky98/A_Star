@@ -15,7 +15,7 @@ def insert_fringe(i, j, fringe, f):
     else:
         for x in range(len(fringe)):
             (I,J)=fringe[x]
-            if f[I][J]<f[i][j]:
+            if f[I][J]>f[i][j]:
                 fringe.insert(x, (i,j))
                 return
         fringe.append((i,j))
