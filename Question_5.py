@@ -23,7 +23,8 @@ def search_size(parent, dim):
                 ans = ans + 1
     return ((dim * dim) - ans)
 
-df = pd.DataFrame(columns=['Grid',
+df = pd.DataFrame(columns=['p',
+                           'Grid',
                            'Start',
                            'Stop',
                            'Time',
@@ -40,19 +41,19 @@ while p < 0.31:
         if result == True:
             path = find_path(parent, 101)
             searchs = search_size(parent, 101)
-            df1 = pd.DataFrame([[grid, start, stop, stop-start, "Euclidean", searchs, len(path)]],columns=['Grid','Start','Stop','Time','Heuristic Function','Search Space','Path Length'])
+            df1 = pd.DataFrame([[p, grid, start, stop, stop-start, "Euclidean", searchs, len(path)]],columns=['p', 'Grid','Start','Stop','Time','Heuristic Function','Search Space','Path Length'])
             df = pd.concat([df,df1])
             
             result, start, stop, parent = a_star(101, p, grid, 2)
             path = find_path(parent, 101)
             searchs = search_size(parent, 101)
-            df1 = pd.DataFrame([[grid, start, stop, stop-start, "Manhattan", searchs, len(path)]],columns=['Grid','Start','Stop','Time','Heuristic Function','Search Space','Path Length'])
+            df1 = pd.DataFrame([[p, grid, start, stop, stop-start, "Manhattan", searchs, len(path)]],columns=['p', 'Grid','Start','Stop','Time','Heuristic Function','Search Space','Path Length'])
             df = pd.concat([df,df1])
             
             result, start, stop, parent = a_star(101, p, grid, 2)
             path = find_path(parent, 101)
             searchs = search_size(parent, 101)
-            df1 = pd.DataFrame([[grid, start, stop, stop-start, "Chebyshev", searchs, len(path)]],columns=['Grid','Start','Stop','Time','Heuristic Function','Search Space','Path Length'])
+            df1 = pd.DataFrame([[p, grid, start, stop, stop-start, "Chebyshev", searchs, len(path)]],columns=['p', 'Grid','Start','Stop','Time','Heuristic Function','Search Space','Path Length'])
             df = pd.concat([df,df1])
     df.to_csv('Question_5.csv')
     print(p)
