@@ -39,15 +39,13 @@ def search_size(parent, dim):
 
 def a_star(dim, P, grid, heu, si, sj):
     
-    start=timeit.default_timer()
-    
     result=False
     
     g=[[-1 for i in range(dim)] for j in range(dim)]
     g[si][sj]=0
     
     h=[[dist(i,j,dim,heu) for i in range(dim)] for j in range(dim)]
-
+    
     f=[[-1 for i in range(dim)] for j in range(dim)]
     f[si][sj]=g[si][sj]+h[si][sj]
     p=[[-1 for i in range(dim)] for j in range(dim)]
@@ -85,11 +83,11 @@ def a_star(dim, P, grid, heu, si, sj):
             f[i][j-1]=g[i][j-1]+h[i][j-1]
             insert_fringe(i,j-1,fringe,f)
     
-    stop=timeit.default_timer()
-    
-    return(result, start, stop, p)
+    return(result, p)
 
 def repeated_a_star(grid, dim, P, heu):
+    
+    start = timeit.default_timer()
     
     dis = [[0 for i in range(dim)] for j in range(dim)]
     
@@ -100,12 +98,12 @@ def repeated_a_star(grid, dim, P, heu):
     sj = 0
     
     final = []
-
+    
     cells = 0
     
     while done != True:
         
-        result, start, stop, parent =a_star(dim, P, dis, heu, si, sj)
+        result, parent =a_star(dim, P, dis, heu, si, sj)
         if result == False:
             break
         
@@ -140,5 +138,7 @@ def repeated_a_star(grid, dim, P, heu):
 
         if flag:
             done = True
-
-    return(result, final, dis, cells)
+    
+    stop = timeit.default_timer()
+    
+    return(result, final, dis, cells, start, stop)
